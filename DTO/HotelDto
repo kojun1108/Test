@@ -1,1 +1,10 @@
-a
+package com.example.travel.dto;
+
+public class HotelCartItemDto
+        extends CartItemDto {
+
+    @Override
+    public String getItemType() {
+        return "HOTEL";
+    }
+}
