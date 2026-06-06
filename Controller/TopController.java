@@ -1,27 +1,33 @@
-@GetMapping("/menu")
-public String menu(
-        HttpSession session,
-        Model model) {
+@Controller
+@RequestMapping("/menu")
+@RequiredArgsConstructor
+public class MenuController {
 
-    CartDto cart =
-        (CartDto)session.getAttribute("cart");
+    private final MenuService menuService;
 
-    if (cart == null) {
+    @GetMapping
+    public String index(
+            HttpSession session,
+            Model model) {
 
-        cart = new CartDto();
+        CartDto cart =
+                (CartDto) session.getAttribute("cart");
 
-        session.setAttribute(
-            "cart",
-            cart);
+        if (cart == null) {
+
+            cart = new CartDto();
+
+            session.setAttribute("cart", cart);
+        }
+
+        model.addAttribute(
+                "hotelList",
+                menuService.getHotels());
+
+        model.addAttribute(
+                "flightList",
+                menuService.getFlights());
+
+        return "menu";
     }
-
-    model.addAttribute(
-        "hotels",
-        menuService.getHotels());
-
-    model.addAttribute(
-        "flights",
-        menuService.getFlights());
-
-    return "menu";
 }
