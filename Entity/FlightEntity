@@ -1,0 +1,13 @@
+@Entity
+@Table(name = "flight")
+public class FlightEntity {
+
+    @Id
+    Integer flightId;
+
+    String flightName;
+
+    Integer price;
+
+    Integer seatCount;
+}
