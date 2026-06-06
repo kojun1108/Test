@@ -1,0 +1,10 @@
+package com.example.travel.dto;
+
+public class FlightCartItemDto
+        extends CartItemDto {
+
+    @Override
+    public String getItemType() {
+        return "FLIGHT";
+    }
+}
