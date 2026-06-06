@@ -1,0 +1,13 @@
+@Entity
+@Table(name = "hotel")
+public class HotelEntity {
+
+    @Id
+    Integer hotelId;
+
+    String hotelName;
+
+    Integer price;
+
+    Integer stock;
+}
