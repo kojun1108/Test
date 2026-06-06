@@ -1,21 +1,20 @@
 @Controller
-@RequestMapping("/login")
 @RequiredArgsConstructor
 public class LoginController {
 
     private final LoginService loginService;
 
-    @GetMapping
-    public String loginForm() {
+    @GetMapping("/login")
+    public String loginPage() {
 
         return "login";
     }
 
-    @PostMapping
+    @PostMapping("/login")
     public String login(
             LoginForm form,
             HttpSession session,
-            RedirectAttributes redirectAttributes) {
+            Model model) {
 
         UserSessionDto user =
                 loginService.login(
@@ -24,11 +23,11 @@ public class LoginController {
 
         if (user == null) {
 
-            redirectAttributes.addFlashAttribute(
+            model.addAttribute(
                     "message",
                     "ログイン失敗");
 
-            return "redirect:/login";
+            return "login";
         }
 
         session.setAttribute(
@@ -44,6 +43,6 @@ public class LoginController {
 
         session.invalidate();
 
-        return "redirect:/menu";
+        return "redirect:/login";
     }
 }
