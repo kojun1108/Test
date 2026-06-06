@@ -1,12 +1,11 @@
 @Controller
-@RequestMapping("/menu")
 @RequiredArgsConstructor
 public class MenuController {
 
     private final MenuService menuService;
 
-    @GetMapping
-    public String index(
+    @GetMapping("/menu")
+    public String menu(
             HttpSession session,
             Model model) {
 
@@ -17,7 +16,9 @@ public class MenuController {
 
             cart = new CartDto();
 
-            session.setAttribute("cart", cart);
+            session.setAttribute(
+                    "cart",
+                    cart);
         }
 
         model.addAttribute(
