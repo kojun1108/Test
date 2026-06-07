@@ -11,6 +11,15 @@ public class CartItemDto {
     }
     
     public void addItem(ItemDto item){
+         //同じ商品があれば数量加算をする
+         for(int i =0; i<items.size(); i++){
+            ItemDto citem = items.get(i);
+            if(citem.getItemCode().equals(item.getItemCode())){
+                citem.setQuantity(citem.getQuantity() + item.getQuantity());
+                return;
+            }
+         }    
+        
         items.add(item);
     }
   
