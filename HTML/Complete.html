@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>購入完了</title>
+</head>
+
+<body>
+
+<h1>購入完了</h1>
+
+<table border="1">
+
+<tr>
+    <th>受注番号</th>
+    <td th:text="${order.orderNo}">
+    </td>
+</tr>
+
+<tr>
+    <th>注文日</th>
+    <td th:text="${order.orderDate}">
+    </td>
+</tr>
+
+<tr>
+    <th>会員コード</th>
+    <td th:text="${order.memberCode}">
+    </td>
+</tr>
+
+<tr>
+    <th>決済方法</th>
+    <td th:text="${order.paymentMethod}">
+    </td>
+</tr>
+
+<tr>
+    <th>合計金額</th>
+    <td th:text="${order.totalPrice}">
+    </td>
+</tr>
+
+</table>
+
+<br>
+
+<h2>購入商品</h2>
+
+<table border="1">
+
+<tr>
+    <th>商品コード</th>
+    <th>商品名</th>
+    <th>料金</th>
+    <th>数量</th>
+    <th>小計</th>
+</tr>
+
+<tr th:each="detail : ${order.details}">
+
+    <td th:text="${detail.itemCode}">
+    </td>
+
+    <td th:text="${detail.itemName}">
+    </td>
+
+    <td th:text="${detail.price}">
+    </td>
+
+    <td th:text="${detail.quantity}">
+    </td>
+
+    <td th:text="${detail.subTotal}">
+    </td>
+
+</tr>
+
+</table>
+
+</body>
+
+</html>
