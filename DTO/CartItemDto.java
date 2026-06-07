@@ -1,13 +1,16 @@
 public class CartItemDto {
+    private ArrayList<ItemDto> items;
+    private int totalPrice;
 
-    private String itemType; // HOTEL or FLIGHT
+    public void totalPrice(){
+    };
+    public void addItem(ItemDto item){
+    };
+    public void update(String itemCode, int quantity){
+    };
 
-    private Integer itemId;
+    public void remove(String itemCode){
+};
 
-    private String itemName;
-
-    private Integer price;
-
-    private Integer quantity;
-
+    
 }
