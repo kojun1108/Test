@@ -3,11 +3,11 @@
 public interface MemberDao {
 
     @Select
-    List<FlightEntity> selectAll();
+    Member selectById(String memberCode);
 
     @Select
-    FlightEntity selectById(Integer flightId);
+    Member selectByMail(String mail);
 
-    @Update(sqlFile = true)
-    int updateSeat(FlightEntity entity);
+    @insert(sqlFile = true)
+    int insert(Member member);
 }
