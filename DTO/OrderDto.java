@@ -1,11 +1,12 @@
 public class OrderDto{
 
-    private List<CartItemDto> items = new ArrayList<>();
-
-    public Integer getTotalPrice() {
-
-        return items.stream()
-                .mapToInt(x -> x.getPrice() * x.getQuantity())
-                .sum();
-    }
+    private int order;
+    private String itemCode;
+    private String itemName;
+    private int price;
+    private int quantity;
+    private Date orderDate;
+    private int orderTotal;
+    private String memberCode;
+    private String payment;
 }
