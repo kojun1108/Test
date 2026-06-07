@@ -11,6 +11,11 @@ public class OrderService {
 
     private final FlightDao flightDao;
 
+    /*カート追加*/
+    public void addItem(CartItemDto cart, ItemDto item){
+        cart.addItem(item);
+    }
+
     public void purchase(
             UserSessionDto user,
             CartDto cart) {
@@ -61,7 +66,7 @@ public class OrderService {
                 hotel.setStock(
                     hotel.getStock() - 1);
 
-                hotelDao.updateStock(hotel);
+                hotelDao.update(hotel);
 
             } else {
 
@@ -72,7 +77,7 @@ public class OrderService {
                 flight.setSeatCount(
                     flight.getSeatCount() - 1);
 
-                flightDao.updateSeat(flight);
+                flightDao.update(flight);
             }
         }
     }
