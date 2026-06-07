@@ -26,8 +26,23 @@ public class PurchaseController {
   
 
     @PostMapping("/remove")
+     public String remove(String itemCode, HttpSession session) {
+
+        CartDto cart = (CartDto) session.getAttribute("cart");
+
+        purchaseService.remove(cart, itemCode);
+
+        return "cart";
+    }
 
     @PostMapping("/update")
+    public String update(String itemCode, int quantity, HttpSession session){
+       CartDto cart = (CartDto) session.getAttribute("cart");
+    
+        purchaseService.update(cart, itemCode, quantity);
+
+        return cart;
+    }
 
     @GetMapping("/confirm")
     
