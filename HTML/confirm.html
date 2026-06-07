@@ -1,1 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>購入確認</title>
+</head>
 
+<body>
+
+<h1>購入確認</h1>
+
+<!-- 注文商品一覧 -->
+
+<h2>注文商品</h2>
+
+<table border="1">
+
+    <tr>
+        <th>商品種別</th>
+        <th>商品名</th>
+        <th>単価</th>
+        <th>数量</th>
+        <th>小計</th>
+    </tr>
+
+    <tr th:each="item : ${cart.items}">
+
+        <td th:text="${item.itemType}">
+            HOTEL
+        </td>
+
+        <td th:text="${item.itemName}">
+            商品名
+        </td>
+
+        <td th:text="${item.price}">
+            10000
+        </td>
+
+        <td th:text="${item.quantity}">
+            1
+        </td>
+
+        <td th:text="${item.price * item.quantity}">
+            10000
+        </td>
+
+    </tr>
+
+    <tr>
+        <th colspan="4">
+            合計金額
+        </th>
+
+        <th th:text="${cart.totalPrice}">
+            0
+        </th>
+    </tr>
+
+</table>
+
+<br>
+
+<!-- 会員情報 -->
+
+<h2>会員情報</h2>
+
+<table border="1">
+
+    <tr>
+        <th>会員コード</th>
+        <td th:text="${member.memberCode}">
+            1
+        </td>
+    </tr>
+
+    <tr>
+        <th>氏名</th>
+        <td th:text="${member.memberName}">
+            山田太郎
+        </td>
+    </tr>
+
+    <tr>
+        <th>メールアドレス</th>
+        <td th:text="${member.mailAddress}">
+            sample@test.co.jp
+        </td>
+    </tr>
+
+    <tr>
+        <th>電話番号</th>
+        <td th:text="${member.tel}">
+            090-1111-2222
+        </td>
+    </tr>
+
+    <tr>
+        <th>住所</th>
+        <td th:text="${member.address}">
+            東京都〇〇区
+        </td>
+    </tr>
+
+</table>
+
+<h2>支払方法</h2>
+
+<form th:action="@{/purchase}"
+      method="post">
+
+    <select name="paymentMethod">
+
+        <option value="CARD">
+            クレジットカード
+        </option>
+
+        <option value="CASH">
+            現金
+        </option>
+
+    </select>
+
+    <br><br>
+
+    <button type="submit">
+
+        購入確定
+
+    </button>
+
+</form>
+
+<br>
+
+<!-- ボタン -->
+
+<form th:action="@{/purchase}"
+      method="post">
+
+    <button type="submit">
+        購入確定
+    </button>
+
+</form>
+
+<br>
+
+<form th:action="@{/cart}"
+      method="get">
+
+    <button type="submit">
+        カートへ戻る
+    </button>
+
+</form>
+
+</body>
+</html>
