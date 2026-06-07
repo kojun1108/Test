@@ -14,7 +14,7 @@ public class CartItemDto {
         items.add(item);
     }
   
-    public void update(String itemCode, int quantity{
+    public void update(String itemCode, int quantity){
         for(int i =0; i<items.size(); i++){
             ItemDto item = items.get(i);
             if(item.getItemCode().equals(itemCode)){
