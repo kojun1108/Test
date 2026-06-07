@@ -11,6 +11,7 @@ private Time departureTime;
                 private String aiportCode;
                 private Date date;
                 private int price;
+                private int stock;
                 private int version;
                 private String name;
 
