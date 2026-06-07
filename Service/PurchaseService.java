@@ -16,6 +16,27 @@ public class PurchaseService {
         cart.addItem(item);
     }
 
+    public void remove(CartItemDto cart, String itemCode){
+        for(int i =0; i<cart.getItems().size(); i++){
+            ItemDto item = cart.getItems().get(i);
+            if(item.getItemCode().equals(itemCode)){
+                cart.getItems.remove(i);
+                break;
+            }
+        }
+    }
+
+       public void update(CartItemDto cart, String itemCode, int quantity){
+        for(int i =0; i<cart.getItems().size(); i++){
+            ItemDto item = cart.getItems().get(i);
+            if(item.getItemCode().equals(itemCode)){
+                item.setQuantity(quantity);
+                break;
+            }
+        }
+    }
+    
+
     public void purchase(
             UserSessionDto user,
             CartDto cart) {
