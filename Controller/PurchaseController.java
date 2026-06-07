@@ -4,7 +4,16 @@ public class CartController {
 
     private final CartService cartService;
 
-    @PostMapping("/cart/add")
+    @GetMapping("/showCart")
+    public String showCart(HttpSession session, Model model) {
+        CartItemDto cart = (CartItemDto) sesssion.getAttribute("cart");
+
+        model.addAttribute("cart", cart);
+
+        return "cart";
+    }
+    
+    @PostMapping("/addItem")
     public String addItem(
             CartItemDto item,
             HttpSession session) {
@@ -20,7 +29,15 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @GetMapping("/cart")
+  
+
+    @PostMapping("/remove")
+
+    @PostMapping("/update")
+
+    @GetMapping("/confirm")
+
+    @GetMapping("/backCart")
     public String cart(
             HttpSession session,
             Model model) {
@@ -32,4 +49,9 @@ public class CartController {
 
         return "cart";
     }
+
+    @PostMapping("/searchMember")
+
+    @PostMapping("/purchaseComplete")
+    
 }
