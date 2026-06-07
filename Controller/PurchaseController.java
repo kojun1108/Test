@@ -78,13 +78,7 @@ public class PurchaseController {
     public String purchaseComplete(MemberDto memberDto , String paymentMethod, HttpSession session){
         CartDto cart = (CartDto) session.getAttribute("cart");
 
-        OrderDto order = new OrderDto();
-
-        order.setMemberCode(memberDto.getMemberCode());
-        order.setPaymentMethod(paymentMethod);
-        order.setTotalPrice(cart.getTotalPrice());
-
-        purchaseService.purchase(order, cart);
+        OrderDto order = purchaseService.purchase(memberDto , paymentMethod, cart);
 
         model.addAttribute("order", order);
 
