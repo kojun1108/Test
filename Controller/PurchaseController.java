@@ -1,8 +1,8 @@
 @Controller
 @RequiredArgsConstructor
-public class CartController {
+public class PurchaseController {
 
-    private final CartService cartService;
+    private final PurchaseServise purchaseService;
 
     @GetMapping("/showCart")
     public String showCart(HttpSession session, Model model) {
@@ -14,19 +14,13 @@ public class CartController {
     }
     
     @PostMapping("/addItem")
-    public String addItem(
-            CartItemDto item,
-            HttpSession session) {
+    public String addItem(@ModelAttribute CartItemDto item, HttpSession session) {
 
-        CartDto cart =
-                (CartDto) session
-                        .getAttribute("cart");
+        CartDto cart = (CartDto) session.getAttribute("cart");
 
-        cartService.addItem(
-                cart,
-                item);
+        purchaseService.addItem(cart, item);
 
-        return "redirect:/cart";
+        return "cart";
     }
 
   
@@ -36,6 +30,7 @@ public class CartController {
     @PostMapping("/update")
 
     @GetMapping("/confirm")
+    
 
     @GetMapping("/backCart")
     public String cart(
@@ -53,5 +48,19 @@ public class CartController {
     @PostMapping("/searchMember")
 
     @PostMapping("/purchaseComplete")
+    public String purchaseComplete(MemberDto memberDto ,HttpSession session){
+        UserDto cart = (UserDto) session.getAttribute("user");
+        CartDto cart = (CartDto) session.getAttribute("cart");
+
+        purchaseService.purchase(memberDto, cart);
+
+        session.setAttribute("cart", new CartItemDto());
+
+        //オーダーの中身を出す?
+        
+        return "complete";
+
+        
+    }
     
 }
