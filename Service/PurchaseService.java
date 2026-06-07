@@ -1,7 +1,7 @@
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class OrderService {
+public class PurchaseService {
 
     private final OrderMasterDao orderMasterDao;
 
