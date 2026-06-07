@@ -75,15 +75,20 @@ public class PurchaseController {
     @PostMapping("/searchMember")
 
     @PostMapping("/purchaseComplete")
-    public String purchaseComplete(MemberDto memberDto ,HttpSession session){
-        UserDto cart = (UserDto) session.getAttribute("user");
+    public String purchaseComplete(MemberDto memberDto , String paymentMethod, HttpSession session){
         CartDto cart = (CartDto) session.getAttribute("cart");
 
-        purchaseService.purchase(memberDto, cart);
+        OrderDto order = new OrderDto();
+
+        order.setMemberCode(memberDto.getMemberCode());
+        order.setPaymentMethod(paymentMethod);
+        order.setTotalPrice(cart.getTotalPrice());
+
+        purchaseService.purchase(order, cart);
+
+        model.addAttribute("order", order);
 
         session.setAttribute("cart", new CartItemDto());
-
-        //オーダーの中身を出す?
         
         return "complete";
 
