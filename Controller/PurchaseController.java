@@ -44,7 +44,19 @@ public class PurchaseController {
         return cart;
     }
 
-    @GetMapping("/confirm")
+    @PostMapping("/confirm")
+    public String confirm(HttpSession session, Model model){
+        UserDto user = (UserDto) session.getAttribute("user");
+        CartDto cart = (CartDto) session.getAttribute("cart");
+
+        Member member = purchaseService.getMember(user.getUserId());
+
+        model.addAttribute("member", member);
+        model.addAttribute("cart", cart);
+
+        return confirm;
+        
+    }
     
 
     @GetMapping("/backCart")
