@@ -1,13 +1,20 @@
 public class CartItemDto {
     private List<ItemDto> items = new ArrayList<>();
-    private int totalPrice;
 
-    public void totalPrice(){
-        int x = 0;
-        for(ItemDto i : items.getItems()){
-            x += i.getSubtotal();
+    public Integer getTotalPrice() {
+
+        Integer total = 0;
+
+        for (CartItemDto item : items) {
+
+            total += item.getPrice()
+
+                    * item.getQuantity();
+
         }
-        totalPrice = x;
+
+        return total;
+
     }
     
     public void addItem(ItemDto item){
