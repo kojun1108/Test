@@ -12,36 +12,16 @@ public class PurchaseService {
     private final FlightDao flightDao;
 
     /*カート追加*/
-    public void addItem(CartItemDto cart, ItemDto item){
-        //同じ商品があれば数量加算をする
-         for(int i =0; i<cart.getItems().size(); i++){
-            ItemDto citem = cart.getItems().get(i);
-            if(citem.getItemCode().equals(item.getItemCode())){
-                citem.setQuantity(citem.getQuantity() + item.getQuantity());
-                return;
-            }
-         }      
+    public void addItem(CartItemDto cart, ItemDto item){  
         cart.addItem(item);
     }
 
     public void remove(CartItemDto cart, String itemCode){
-        for(int i =0; i<cart.getItems().size(); i++){
-            ItemDto item = cart.getItems().get(i);
-            if(item.getItemCode().equals(itemCode)){
-                cart.getItems().remove(i);
-                break;
-            }
-        }
+       cart.remove(itemCode);
     }
 
        public void update(CartItemDto cart, String itemCode, int quantity){
-        for(int i =0; i<cart.getItems().size(); i++){
-            ItemDto item = cart.getItems().get(i);
-            if(item.getItemCode().equals(itemCode)){
-                item.setQuantity(quantity);
-                break;
-            }
-        }
+           cart.update(itemCode, quantity);
     }
     
 
