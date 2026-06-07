@@ -13,6 +13,14 @@ public class PurchaseService {
 
     /*カート追加*/
     public void addItem(CartItemDto cart, ItemDto item){
+        //同じ商品があれば数量加算をする
+         for(int i =0; i<cart.getItems().size(); i++){
+            ItemDto citem = cart.getItems().get(i);
+            if(citem.getItemCode().equals(item.getItemCode())){
+                citem.setQuantity(citem.getQuantity() + item.getQuantity());
+                return;
+            }
+         }      
         cart.addItem(item);
     }
 
@@ -20,7 +28,7 @@ public class PurchaseService {
         for(int i =0; i<cart.getItems().size(); i++){
             ItemDto item = cart.getItems().get(i);
             if(item.getItemCode().equals(itemCode)){
-                cart.getItems.remove(i);
+                cart.getItems().remove(i);
                 break;
             }
         }
