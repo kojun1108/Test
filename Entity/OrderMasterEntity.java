@@ -3,8 +3,9 @@
 public class OrderMasterEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer orderNo;
     Integer orderMasterId;
+    String paymentMethod;
 
     Integer userId;
 
