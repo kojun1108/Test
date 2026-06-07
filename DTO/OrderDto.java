@@ -9,4 +9,6 @@ public class OrderDto{
     private int orderTotal;
     private String memberCode;
     private String payment;
+
+    private List<OrderDetailDto> details;
 }
