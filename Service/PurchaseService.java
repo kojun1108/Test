@@ -25,66 +25,81 @@ public class PurchaseService {
     }
     
 
-    public void purchase(
-            UserSessionDto user,
-            CartDto cart) {
+    public void purchaseComplete(MemberDto memberDto , String paymentMethod, CartDto cart) {
+        //注文番号はテーブルを参照して、一番小さい番号に1を足す
+        Integer orderNo = orderMasterDao.selectMaxorderNo();
+        if(orderNo == NULL){
+            orderNo = 1;
+        }else{
+            orderNo += 1;
+        
+        OrderMaster master = new OrderMaster();
+         master.setOrderNo(orderNo);
 
-        OrderMasterEntity master =
-                new OrderMasterEntity();
+        master.setMemberCode(memberDto.getMemberCode());
 
-        master.setUserId(user.getUserId());
+        master.setPaymentMethod(paymentMethod);
 
         master.setOrderDate(LocalDateTime.now());
 
-        master.setTotalPrice(
-                cart.getTotalPrice());
+        master.setTotalPrice(cart.getTotalPrice());
 
+        //マスターテーブルに追加
         orderMasterDao.insert(master);
+
+        List<OrderDetailDto> detailList = new ArrayList<>();
 
         for (CartItemDto item : cart.getItems()) {
 
-            OrderDetailEntity detail =
-                    new OrderDetailEntity();
+            OrderDetail detail =　new OrderDetail();
 
-            detail.setOrderMasterId(
-                    master.getOrderMasterId());
+            detail.setOrderMasterId(master.getOrderMasterId());
 
-            detail.setItemType(
-                    item.getItemType());
+            detail.setItemType(item.getItemType());
 
-            detail.setItemId(
-                    item.getItemId());
+            detail.setItemCode(item.getItemCode());
 
-            detail.setItemName(
-                    item.getItemName());
+            detail.setItemName(item.getItemName());
 
-            detail.setPrice(
-                    item.getPrice());
+            detail.setPrice(item.getPrice());
 
-            detail.setQuantity(
-                    item.getQuantity());
+            detail.setQuantity(item.getQuantity());
 
+            
+            //detailテーブルに追加
             orderDetailDao.insert(detail);
+
+            //画面商品表示用のorderdetaildtoを作成
+            OrderdetaiDto dto = new OrderDetailDto();
+
+            dto.setItemCode(detail.getItemCode());
+
+            detailList.add(dto);
+        }
+
+        //画面表示用の注文情報
+        OrderDto order = new OrderDto();
+
+        order.setOrderNo(orderNo);
+
+        order.setDetails(detailList);
+
+        //在庫更新
 
             if ("HOTEL".equals(item.getItemType())) {
 
-                HotelEntity hotel =
-                    hotelDao.selectById(
-                        item.getItemId());
-
-                hotel.setStock(
-                    hotel.getStock() - 1);
+                HotelEntity hotel = hotelDao.selectById(item.getItemId());
+                
+                //ここでマイナスならエラー投げる
+                hotel.setStock(hotel.getStock() - item.getQuantity());
 
                 hotelDao.update(hotel);
 
             } else {
 
-                FlightEntity flight =
-                    flightDao.selectById(
-                        item.getItemId());
+                FlightEntity flight =flightDao.selectById(item.getItemId());
 
-                flight.setSeatCount(
-                    flight.getSeatCount() - 1);
+                flight.setStock(flight.getSeatCount() - item.getQuantity());
 
                 flightDao.update(flight);
             }
