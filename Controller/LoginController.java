@@ -10,6 +10,15 @@ public class LoginController {
         return "login";
     }
 
+    @GetMapping("/loginCart")
+    public String logincart(HttpSession session, Model model) {
+           CartItemDto cart = (CartItemDto) sesssion.getAttribute("cart");
+
+        model.addAttribute("cart", cart);
+
+        return "cart";
+    }
+
     @PostMapping("/login")
     public String login(
             LoginForm form,
