@@ -97,16 +97,8 @@
 
     <tr>
         <th>住所</th>
-        <td th:text="${member.address}">
-            東京都〇〇区
-        </td>
-    </tr>
-
-</table>
-
-<h2>支払方法</h2>
-
-<form th:action="@{/purchase}"
+        <td>
+            <form th:action="@{/purchase}"
       method="post">
 
     <select name="paymentMethod">
@@ -121,15 +113,15 @@
 
     </select>
 
-    <br><br>
-
-    <button type="submit">
-
-        購入確定
-
-    </button>
-
 </form>
+
+        </td>
+    </tr>
+
+</table>
+
+<h2>支払方法</h2>
+
 
 <br>
 
