@@ -75,7 +75,7 @@ public class PurchaseController {
     @PostMapping("/searchMember")
 
     @PostMapping("/purchaseComplete")
-    public String purchaseComplete(MemberDto memberDto , String paymentMethod, HttpSession session){
+    public String purchaseComplete(MemberDto memberDto , String paymentMethod, HttpSession session, Model model){
         CartDto cart = (CartDto) session.getAttribute("cart");
 
         OrderDto order = purchaseService.purchase(memberDto , paymentMethod, cart);
