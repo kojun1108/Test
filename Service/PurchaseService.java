@@ -11,6 +11,7 @@ public class PurchaseService {
 
     private final FlightDao flightDao;
 
+
     /*カート追加*/
     public void addItem(CartItemDto cart, ItemDto item){  
         cart.addItem(item);
