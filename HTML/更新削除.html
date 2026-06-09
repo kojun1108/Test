@@ -1,0 +1,76 @@
+<form id="updateForm"
+      th:action="@{/cart/update}"
+      th:object="${cart}"
+      method="post">
+
+    <table border="1">
+
+        <tr>
+            <th>商品名</th>
+            <th>単価</th>
+            <th>数量</th>
+            <th>小計</th>
+            <th>削除</th>
+        </tr>
+
+        <tr th:each="item, stat : *{items}">
+
+            <td th:text="${item.itemName}">
+            </td>
+
+            <td th:text="${item.price}">
+            </td>
+
+            <td>
+
+                <input
+                    type="hidden"
+                    th:field="*{items[__${stat.index}__].itemId}" />
+
+                <input
+                    type="number"
+                    min="1"
+                    th:field="*{items[__${stat.index}__].quantity}" />
+
+            </td>
+
+            <td th:text="${item.price * item.quantity}">
+            </td>
+
+            <td>
+
+                <button
+                    type="submit"
+                    th:form="'removeForm' + ${item.itemId}">
+
+                    削除
+
+                </button>
+
+            </td>
+
+        </tr>
+
+    </table>
+
+    <br>
+
+    <button type="submit">
+
+        カート更新
+
+    </button>
+
+</form>
+
+<th:block
+        th:each="item : ${cart.items}">
+
+    <form
+            th:id="'removeForm' + ${item.itemId}"
+            th:action="@{'/cart/remove/' + ${item.itemId}}"
+            method="post">
+
+    </form>
+
+</th:block>
