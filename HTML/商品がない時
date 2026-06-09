@@ -1,0 +1,36 @@
+<div th:if="${#lists.isEmpty(cart.items)}">
+
+    商品がありません
+
+</div>
+
+<table border="1"
+       th:if="${not #lists.isEmpty(cart.items)}">
+
+    <tr>
+        <th>商品名</th>
+        <th>単価</th>
+        <th>数量</th>
+        <th>小計</th>
+        <th>削除</th>
+    </tr>
+
+    <tr th:each="item, stat : ${cart.items}">
+
+        <!-- 商品表示 -->
+
+    </tr>
+
+</table>
+
+<form th:unless="${#lists.isEmpty(cart.items)}"
+      th:action="@{/confirm}"
+      method="post">
+
+    <button type="submit">
+
+        購入確認へ
+
+    </button>
+
+</form>
