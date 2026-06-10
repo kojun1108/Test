@@ -1,0 +1,47 @@
+<!-- 注文番号 -->
+<table border="1">
+    <tr>
+        <th>注文番号</th>
+        <td th:text="${orderNo}"></td>
+    </tr>
+</table>
+
+<h2 style="text-align:center;">
+    注文が確定しました
+</h2>
+
+<h3>購入商品情報</h3>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>商品コード</th>
+            <th>商品名</th>
+            <th>数量</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="item : ${productList}">
+            <td th:text="${item.productCode}"></td>
+            <td th:text="${item.productName}"></td>
+            <td th:text="${item.quantity}"></td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>メンバー情報</h3>
+
+<table border="1">
+    <tr>
+        <th>会員ID</th>
+        <td th:text="${memberDto.memberId}"></td>
+    </tr>
+    <tr>
+        <th>氏名</th>
+        <td th:text="${memberDto.name}"></td>
+    </tr>
+    <tr>
+        <th>支払方法</th>
+        <td th:text="${paymentMethodName}"></td>
+    </tr>
+</table>
