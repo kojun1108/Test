@@ -27,10 +27,11 @@
                     type="hidden"
                     th:field="*{items[__${stat.index}__].itemId}" />
 
-                <input
-                    type="number"
-                    min="1"
-                    th:field="*{items[__${stat.index}__].quantity}" />
+             <input
+    type="number"
+    min="1"
+    th:max="${item.stock}"
+    th:field="*{items[__${stat.index}__].quantity}" />
 
             </td>
 
