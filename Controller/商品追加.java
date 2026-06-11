@@ -137,3 +137,121 @@ public void addItem(
 
 
 
+public void addItem(
+        CartDto cart,
+        Integer itemId,
+        Integer quantity) {
+
+    HotelEntity hotel =
+            hotelDao.selectById(itemId);
+
+    if (hotel != null) {
+
+        if (quantity > hotel.getStock()) {
+
+            throw new IllegalArgumentException(
+                    "在庫数を超えています");
+        }
+
+        HotelCartItemDto item =
+                new HotelCartItemDto();
+
+        item.setItemId(
+                hotel.getHotelId());
+
+        item.setItemName(
+                hotel.getHotelName());
+
+        item.setPrice(
+                hotel.getPrice());
+
+        item.setQuantity(
+                quantity);
+
+        cart.addItem(item);
+
+        return;
+    }
+
+    FlightEntity flight =
+            flightDao.selectById(itemId);
+
+    if (flight != null) {
+
+        if (quantity > flight.getSeatCount()) {
+
+            throw new IllegalArgumentException(
+                    "残席数を超えています");
+        }
+
+        FlightCartItemDto item =
+                new FlightCartItemDto();
+
+        item.setItemId(
+                flight.getFlightId());
+
+        item.setItemName(
+                flight.getFlightName());
+
+        item.setPrice(
+                flight.getPrice());
+
+        item.setQuantity(
+                quantity);
+
+        cart.addItem(item);
+
+        return;
+    }
+
+    throw new IllegalArgumentException(
+            "商品が存在しません");
+}
+
+
+
+
+@PostMapping("/cart/add")
+public String addItem(
+
+        @RequestParam Integer itemId,
+
+        @RequestParam Integer quantity,
+
+        @ModelAttribute("cart")
+        CartDto cart,
+
+        Model model) {
+
+    try {
+
+        cartOrderService.addItem(
+                cart,
+                itemId,
+                quantity);
+
+        return "redirect:/cart";
+
+    } catch (IllegalArgumentException e) {
+
+        HotelDto hotel =
+                hotelService.findById(
+                        itemId);
+
+        model.addAttribute(
+                "hotel",
+                hotel);
+
+        model.addAttribute(
+                "errorMessage",
+                e.getMessage());
+
+        return "hotelDetail";
+    }
+}
+
+
+<p th:if="${errorMessage}"
+   th:text="${errorMessage}">
+</p>
+
