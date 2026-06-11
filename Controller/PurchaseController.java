@@ -43,20 +43,26 @@ public class PurchaseController {
 
         return cart;
     }
+@GetMapping("/confirm")
+public String init(
+        HttpSession session,
+        Model model) {
 
-    @PostMapping("/confirm")
-    public String confirm(HttpSession session, Model model){
-        UserDto user = (UserDto) session.getAttribute("user");
-        CartDto cart = (CartDto) session.getAttribute("cart");
+    LoginUser loginUser =
+            (LoginUser) session.getAttribute("loginUser");
 
-        Member member = purchaseService.getMember(user.getUserId());
+    MemberDto memberDto = null;
 
-        model.addAttribute("member", member);
-        model.addAttribute("cart", cart);
+    if ("CUSTOMER".equals(loginUser.getRole())) {
 
-        return confirm;
-        
+        memberDto = memberService.getMember(
+                loginUser.getMemberCode());
     }
+
+    model.addAttribute("memberDto", memberDto);
+
+    return "purchaseConfirm";
+}
     
 
     @GetMapping("/backCart")
