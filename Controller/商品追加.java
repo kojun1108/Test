@@ -234,19 +234,44 @@ public String addItem(
 
     } catch (IllegalArgumentException e) {
 
-        HotelDto hotel =
-                hotelService.findById(
+         model.addAttribute(
+
+                "errorMessage",
+
+                e.getMessage());
+
+        HotelEntity hotel =
+
+                hotelDao.selectById(
+
+                        itemId);
+
+        if (hotel != null) {
+
+            model.addAttribute(
+
+                    "hotel",
+
+                    hotel);
+
+            return "hotelDetail";
+
+        }
+
+        FlightEntity flight =
+
+                flightDao.selectById(
+
                         itemId);
 
         model.addAttribute(
-                "hotel",
-                hotel);
 
-        model.addAttribute(
-                "errorMessage",
-                e.getMessage());
+                "flight",
 
-        return "hotelDetail";
+                flight);
+
+        return "flightDetail";
+
     }
 }
 
