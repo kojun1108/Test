@@ -1,0 +1,31 @@
+<div th:if="${memberDto == null}">
+    <input type="text" name="memberCode">
+
+    <button type="submit"
+            formaction="/purchase/search">
+        検索
+    </button>
+</div>
+
+<div th:if="${memberDto != null}">
+
+    <input type="hidden"
+           name="memberDto.memberId"
+           th:value="${memberDto.memberId}">
+
+    <input type="hidden"
+           name="memberDto.name"
+           th:value="${memberDto.name}">
+
+    <table>
+        <tr>
+            <th>会員ID</th>
+            <td th:text="${memberDto.memberId}"></td>
+        </tr>
+        <tr>
+            <th>氏名</th>
+            <td th:text="${memberDto.name}"></td>
+        </tr>
+    </table>
+
+</div>
