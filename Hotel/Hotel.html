@@ -1,72 +1,110 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <meta charset="UTF-8">
 <title>ホテル検索</title>
-<link rel="stylesheet" th:href="@{/css/hotel.css}">
+
+<link rel="stylesheet"
+      th:href="@{/css/hotel.css}">
 </head>
 
 <body>
 
 <div class="container">
 
-    <h1 class="title">ホテル検索</h1>
+    <h1 class="page-title">
+        ホテル検索
+    </h1>
 
     <!-- 検索フォーム -->
-    <form th:action="@{/hotel}"
+
+    <form th:action="@{/hotel/search}"
           method="get"
           th:object="${searchForm}"
           class="search-box">
 
-        <input type="date"
-               th:field="*{stayDate}">
+        <div class="input-area">
 
-        <select th:field="*{city}">
-            <option value="">都市を選択</option>
-            <option value="福岡">福岡</option>
-            <option value="博多">博多</option>
-            <option value="東京">東京</option>
-        </select>
+            <input type="date"
+                   th:field="*{stayDate}">
 
-        <input type="number"
-               th:field="*{maxPrice}"
-               placeholder="料金上限">
-
-        <button type="submit">
-            検索
-        </button>
-
-    </form>
-
-    <!-- 0件 -->
-    <div class="no-data"
-         th:if="${#lists.isEmpty(hotelList)}">
-
-        該当するホテルはありません。
-
-    </div>
-
-    <!-- ホテル一覧 -->
-    <div class="hotel-list"
-         th:if="${!#lists.isEmpty(hotelList)}">
-
-        <div class="header">
-
-            <div class="header-name">
-                ホテル名
-            </div>
-
-            <div class="header-price">
-                料金
+            <div class="error"
+                 th:if="${#fields.hasErrors('stayDate')}"
+                 th:errors="*{stayDate}">
             </div>
 
         </div>
 
-        <div th:each="hotel : ${hotelList}"
-             class="hotel-item"
-             th:classappend="${hotel.stock == 0} ? ' soldout'">
+        <div class="input-area">
 
-            <div class="hotel-info">
+            <select th:field="*{city}">
+
+                <option value="">
+                    都市名
+                </option>
+
+                <option value="福岡">
+                    福岡
+                </option>
+
+                <option value="博多">
+                    博多
+                </option>
+
+                <option value="東京">
+                    東京
+                </option>
+
+            </select>
+
+            <div class="error"
+                 th:if="${#fields.hasErrors('city')}"
+                 th:errors="*{city}">
+            </div>
+
+        </div>
+
+        <div class="input-area">
+
+            <input type="number"
+                   th:field="*{maxPrice}"
+                   placeholder="料金上限">
+
+        </div>
+
+        <button type="submit"
+                class="search-btn">
+
+            検索
+
+        </button>
+
+    </form>
+
+    <!-- 一覧ヘッダ -->
+
+    <div class="list-header">
+
+        <div>
+            ホテル名
+        </div>
+
+        <div>
+            料金
+        </div>
+
+    </div>
+
+    <!-- 一覧 -->
+
+    <div class="hotel-list">
+
+        <div th:each="hotel : ${hotelList}"
+             class="hotel-row"
+             th:classappend="${hotel.stock == 0} ? ' soldout-row'">
+
+            <div class="hotel-left">
 
                 <div class="city"
                      th:text="${hotel.city}">
@@ -74,14 +112,10 @@
 
                 <div class="hotel-name">
 
-                    <!-- 在庫あり -->
-
                     <a th:if="${hotel.stock > 0}"
                        th:href="@{/hotel/detail/{id}(id=${hotel.hotelId})}"
                        th:text="${hotel.hotelName}">
                     </a>
-
-                    <!-- 売切れ -->
 
                     <span th:if="${hotel.stock == 0}"
                           class="disabled-name"
@@ -96,16 +130,31 @@
 
             </div>
 
-            <div class="price"
-                 th:text="${#numbers.formatInteger(hotel.price,3,'COMMA')} + '円'">
+            <div class="hotel-right">
+
+                <div class="price"
+                     th:text="${#numbers.formatInteger(hotel.price,3,'COMMA')} + '円'">
+                </div>
+
             </div>
 
-            <span th:if="${hotel.stock == 0}"
-                  class="sold-overlay">
+            <div class="soldout"
+                 th:if="${hotel.stock == 0}">
+
                 Sold Out
-            </span>
+
+            </div>
 
         </div>
+
+    </div>
+
+    <!-- 0件 -->
+
+    <div class="no-data"
+         th:if="${#lists.isEmpty(hotelList)}">
+
+        該当するホテルはありません。
 
     </div>
 
@@ -117,7 +166,7 @@
         <!-- 前へ -->
 
         <form th:if="${currentPage > 0}"
-              th:action="@{/hotel}"
+              th:action="@{/hotel/search}"
               method="get">
 
             <input type="hidden"
@@ -144,9 +193,9 @@
 
         <!-- ページ番号 -->
 
-        <span th:each="i : ${#numbers.sequence(0,totalPages-1)}">
+        <span th:each="i : ${#numbers.sequence(0,totalPages - 1)}">
 
-            <form th:action="@{/hotel}"
+            <form th:action="@{/hotel/search}"
                   method="get">
 
                 <input type="hidden"
@@ -177,7 +226,7 @@
         <!-- 次へ -->
 
         <form th:if="${currentPage < totalPages - 1}"
-              th:action="@{/hotel}"
+              th:action="@{/hotel/search}"
               method="get">
 
             <input type="hidden"
