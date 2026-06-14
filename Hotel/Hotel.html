@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ホテル検索</title>
+
+<link rel="stylesheet"
+      th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 class="title">ホテル検索</h1>
+
+    <div class="hotel-list">
+
+        <div class="header">
+            ホテル一覧
+        </div>
+
+        <div th:each="hotel : ${hotelPage.content}"
+             class="hotel-item"
+             th:classappend="${hotel.stock == 0} ? ' soldout'">
+
+            <div class="hotel-icon">
+                🏨
+            </div>
+
+            <div class="hotel-info">
+
+                <div class="area"
+                     th:text="${hotel.city}">
+                </div>
+
+                <div class="hotel-name">
+
+                    <!-- 在庫あり -->
+
+                    <a th:if="${hotel.stock > 0}"
+                       th:href="@{/hotel/detail/{id}(id=${hotel.hotelId})}"
+                       th:text="${hotel.hotelName}">
+                    </a>
+
+                    <!-- 売り切れ -->
+
+                    <span th:if="${hotel.stock == 0}"
+                          class="disabled-name"
+                          th:text="${hotel.hotelName}">
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="price"
+                 th:text="${#numbers.formatInteger(hotel.price,3,'COMMA')} + '円'">
+            </div>
+
+            <span th:if="${hotel.stock == 0}"
+                  class="sold-overlay">
+                Sold Out
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- ページング -->
+
+    <div class="pager">
+
+        <a th:if="${!hotelPage.first}"
+           th:href="@{/hotel(page=${currentPage-1})}">
+            ＜
+        </a>
+
+        <span th:each="i : ${#numbers.sequence(0, hotelPage.totalPages - 1)}">
+
+            <a th:text="${i+1}"
+               th:href="@{/hotel(page=${i})}"
+               th:classappend="${i == currentPage} ? ' active'">
+            </a>
+
+        </span>
+
+        <a th:if="${!hotelPage.last}"
+           th:href="@{/hotel(page=${currentPage+1})}">
+            ＞
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
