@@ -1,5 +1,6 @@
 package jp.co.example.dao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.seasar.doma.Dao;
@@ -17,13 +18,13 @@ public interface HotelDao {
 
     @Select
     List<HotelEntity> searchWithPrice(
-            String stayDate,
+            LocalDate stayDate,
             String city,
             Integer maxPrice);
 
     @Select
     List<HotelEntity> searchWithoutPrice(
-            String stayDate,
+            LocalDate stayDate,
             String city);
 
     @Select
