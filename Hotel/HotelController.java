@@ -3,12 +3,12 @@ package jp.co.example.controller;
 import java.util.Collections;
 import java.util.List;
 
+import jakarta.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import jp.co.example.entity.HotelEntity;
 import jp.co.example.form.HotelSearchForm;
@@ -25,17 +25,97 @@ public class HotelController {
     @GetMapping
     public String hotel(
             HotelSearchForm form,
-            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "0")
+            int page,
             Model model) {
 
         List<HotelEntity> result =
                 hotelService.search(form);
 
+        createPage(
+                result,
+                page,
+                model);
+
+        model.addAttribute(
+                "searchForm",
+                form);
+
+        return "hotel";
+    }
+
+    @GetMapping("/search")
+    public String search(
+            @Valid HotelSearchForm form,
+            BindingResult bindingResult,
+            @RequestParam(defaultValue = "0")
+            int page,
+            Model model) {
+
+        if (bindingResult.hasErrors()) {
+
+            model.addAttribute(
+                    "hotelList",
+                    Collections.emptyList());
+
+            model.addAttribute(
+                    "currentPage",
+                    0);
+
+            model.addAttribute(
+                    "totalPages",
+                    0);
+
+            return "hotel";
+        }
+
+        List<HotelEntity> result =
+                hotelService.search(form);
+
+        createPage(
+                result,
+                page,
+                model);
+
+        model.addAttribute(
+                "searchForm",
+                form);
+
+        return "hotel";
+    }
+
+    @GetMapping("/detail/{id}")
+    public String detail(
+            @PathVariable String id,
+            HotelSearchForm searchForm,
+            Model model) {
+
+        HotelEntity hotel =
+                hotelService.findById(id);
+
+        model.addAttribute(
+                "hotel",
+                hotel);
+
+        model.addAttribute(
+                "searchForm",
+                searchForm);
+
+        return "hotel-detail";
+    }
+
+    private void createPage(
+            List<HotelEntity> result,
+            int page,
+            Model model) {
+
         int pageSize = 5;
 
-        int fromIndex = page * pageSize;
+        int fromIndex =
+                page * pageSize;
 
         if (fromIndex >= result.size()) {
+
             fromIndex = 0;
             page = 0;
         }
@@ -48,30 +128,25 @@ public class HotelController {
         List<HotelEntity> pageList =
                 result.isEmpty()
                         ? Collections.emptyList()
-                        : result.subList(fromIndex, toIndex);
+                        : result.subList(
+                                fromIndex,
+                                toIndex);
 
         int totalPages =
-                (int)Math.ceil(
-                        (double)result.size()
+                (int) Math.ceil(
+                        (double) result.size()
                                 / pageSize);
 
-        model.addAttribute("searchForm", form);
-        model.addAttribute("hotelList", pageList);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", totalPages);
-
-        return "hotel";
-    }
-
-    @GetMapping("/detail/{id}")
-    public String detail(
-            @PathVariable String id,
-            Model model) {
+        model.addAttribute(
+                "hotelList",
+                pageList);
 
         model.addAttribute(
-                "hotel",
-                hotelService.findById(id));
+                "currentPage",
+                page);
 
-        return "hotel-detail";
+        model.addAttribute(
+                "totalPages",
+                totalPages);
     }
 }
