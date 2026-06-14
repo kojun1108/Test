@@ -1,53 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
 <meta charset="UTF-8">
 <title>ホテル詳細</title>
-
-<link rel="stylesheet"
-      th:href="@{/css/hotel-detail.css}">
+<link rel="stylesheet" th:href="@{/css/hotel-detail.css}">
 </head>
 
 <body>
 
 <div class="container">
 
-    <h1>ホテル詳細</h1>
+    <h2 class="page-title">ホテル詳細</h2>
 
     <!-- 検索エリア -->
 
     <form th:action="@{/hotel}"
           method="get"
           th:object="${searchForm}"
-          class="search-box">
+          class="search-area">
 
         <input type="date"
-               th:field="*{stayDate}">
+               th:field="*{stayDate}"
+               placeholder="宿泊日">
 
         <select th:field="*{city}">
-
-            <option value="">
-                都市を選択
-            </option>
-
-            <option value="福岡">
-                福岡
-            </option>
-
-            <option value="博多">
-                博多
-            </option>
-
-            <option value="東京">
-                東京
-            </option>
-
+            <option value="">都市名</option>
+            <option value="福岡">福岡</option>
+            <option value="東京">東京</option>
         </select>
 
         <input type="number"
                th:field="*{maxPrice}"
-               placeholder="料金上限">
+               placeholder="料金">
 
         <button type="submit">
             検索
@@ -55,22 +39,26 @@
 
     </form>
 
-    <!-- 詳細 -->
+    <!-- 詳細カード -->
 
     <div class="detail-card">
 
         <div class="detail-header">
 
-            <div>
+            <div class="stay-info">
 
-                宿泊日：
+                🌴
+
+                <span>
+                    宿泊日：
+                </span>
 
                 <span th:text="${hotel.stayDate}">
                 </span>
 
             </div>
 
-            <div>
+            <div class="stock">
 
                 在庫：
 
@@ -83,14 +71,17 @@
 
         <div class="detail-body">
 
-            <div class="left">
+            <!-- 左側 -->
+
+            <div class="hotel-info">
 
                 <div class="city"
                      th:text="${hotel.city}">
                 </div>
 
-                <h2 th:text="${hotel.hotelName}">
-                </h2>
+                <div class="hotel-name"
+                     th:text="${hotel.hotelName}">
+                </div>
 
                 <div class="hotel-id"
                      th:text="${hotel.hotelId}">
@@ -107,7 +98,14 @@
 
             </div>
 
-            <div class="right">
+            <!-- 右側 -->
+
+            <div class="purchase-area">
+
+                <div class="error-message"
+                     th:if="${errorMessage}"
+                     th:text="${errorMessage}">
+                </div>
 
                 <form th:action="@{/cart/add}"
                       method="post">
@@ -116,19 +114,23 @@
                            name="hotelId"
                            th:value="${hotel.hotelId}">
 
-                    <label>数量</label>
+                    <div class="quantity-row">
 
-                    <input type="number"
-                           name="quantity"
-                           value="1"
-                           min="1"
-                           th:max="${hotel.stock}">
+                        <label>数量</label>
+
+                        <input type="number"
+                               name="quantity"
+                               min="1"
+                               value="1"
+                               th:max="${hotel.stock}">
+                    </div>
 
                     <div class="price"
                          th:text="${#numbers.formatInteger(hotel.price,3,'COMMA')} + '円'">
                     </div>
 
-                    <button type="submit"
+                    <button class="cart-btn"
+                            type="submit"
                             th:disabled="${hotel.stock == 0}">
                         カートへ
                     </button>
