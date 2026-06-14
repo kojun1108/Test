@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ホテル検索</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h2 class="title">ホテル検索</h2>
+
+    <!-- 検索エリア -->
+    <div class="search-box">
+
+        <input type="date" placeholder="宿泊日">
+
+        <select>
+            <option>都市名</option>
+            <option>福岡</option>
+            <option>東京</option>
+            <option>大阪</option>
+        </select>
+
+        <select>
+            <option>料金</option>
+            <option>10,000円以下</option>
+            <option>15,000円以下</option>
+            <option>20,000円以下</option>
+        </select>
+
+        <button>検索</button>
+
+    </div>
+
+    <!-- ホテル一覧 -->
+    <div class="hotel-list">
+
+        <div class="header">
+            <span>ホテル</span>
+            <span>2026/06/02</span>
+        </div>
+
+        <div class="hotel-item">
+
+            <div class="hotel-icon">
+                🏨
+                <small>FK0001</small>
+            </div>
+
+            <div class="hotel-info">
+                <div class="area">福岡</div>
+                <div class="hotel-name">
+                    福岡プリンセスホテル
+                </div>
+            </div>
+
+            <div class="hotel-date">
+                2026/06/02
+            </div>
+
+            <div class="price">
+                15,000円
+            </div>
+
+        </div>
+
+        <div class="hotel-item soldout">
+
+            <div class="hotel-icon">
+                🏨
+                <small>FK0002</small>
+            </div>
+
+            <div class="hotel-info">
+                <div class="area">博多</div>
+                <div class="hotel-name">
+                    アサトンタワーホテル博多
+                </div>
+                <div class="sold-text">Sold Out</div>
+            </div>
+
+            <div class="hotel-date">
+                2026/06/02
+            </div>
+
+            <div class="price">
+                15,000円
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ページング -->
+    <div class="pager">
+        <button>&lt;</button>
+        <button>&gt;</button>
+    </div>
+
+</div>
+
+</body>
+</html>
