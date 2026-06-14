@@ -24,8 +24,6 @@
           th:object="${searchForm}"
           class="search-box">
 
-        <div class="input-area">
-
             <input type="date"
                    th:field="*{stayDate}">
 
@@ -33,10 +31,6 @@
                  th:if="${#fields.hasErrors('stayDate')}"
                  th:errors="*{stayDate}">
             </div>
-
-        </div>
-
-        <div class="input-area">
 
             <select th:field="*{city}">
 
@@ -63,17 +57,14 @@
                  th:errors="*{city}">
             </div>
 
-        </div>
+            <select th:field="*{maxPrice}">
+            <option>料金</option>
+            <option>10,000円以下</option>
+            <option>15,000円以下</option>
+            <option>20,000円以下</option>
+            </select>
 
-        <div class="input-area">
-
-            <input type="number"
-                   th:field="*{maxPrice}"
-                   placeholder="料金上限">
-
-        </div>
-
-        <button type="submit"
+      <button type="submit"
                 class="search-btn">
 
             検索
