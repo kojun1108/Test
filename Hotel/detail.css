@@ -1,0 +1,114 @@
+body{
+    background:#eef3f7;
+    font-family:Yu Gothic;
+}
+
+.container{
+    width:1000px;
+    margin:auto;
+}
+
+.search-box{
+    background:#f1c84c;
+    padding:15px;
+    border-radius:10px;
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.search-box input,
+.search-box select{
+    height:45px;
+    flex:1;
+    border:none;
+    border-radius:5px;
+    padding:0 10px;
+}
+
+.search-box button{
+    width:120px;
+    border:none;
+    border-radius:25px;
+    background:#2554d8;
+    color:white;
+}
+
+.detail-card{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.detail-header{
+    display:flex;
+    justify-content:space-between;
+    padding:20px;
+    border-bottom:1px solid #ddd;
+    font-size:26px;
+    font-weight:bold;
+}
+
+.detail-body{
+    display:flex;
+    justify-content:space-between;
+    padding:30px;
+}
+
+.left{
+    flex:1;
+}
+
+.city{
+    color:#999;
+}
+
+.left h2{
+    font-size:40px;
+    margin-top:10px;
+}
+
+.hotel-id{
+    color:#999;
+    margin-top:10px;
+}
+
+.grade{
+    margin-top:50px;
+    font-size:28px;
+}
+
+.grade span{
+    font-size:60px;
+    font-weight:bold;
+}
+
+.right{
+    width:250px;
+}
+
+.right input[type=number]{
+    width:80px;
+    height:40px;
+    font-size:20px;
+}
+
+.price{
+    margin-top:20px;
+    font-size:42px;
+    font-weight:bold;
+}
+
+.right button{
+    width:100%;
+    height:50px;
+    margin-top:20px;
+    border:none;
+    border-radius:25px;
+    background:#2554d8;
+    color:white;
+}
+
+.right button:disabled{
+    background:#999;
+}
