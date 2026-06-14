@@ -25,6 +25,14 @@
 
         <input type="date"
                th:field="*{stayDate}">
+            
+           <div class="error"
+
+                 th:if="${#fields.hasErrors('stayDate')}"
+
+                 th:errors="*{stayDate}">
+
+            </div>
 
         <select th:field="*{city}">
             <option value="">都市名</option>
@@ -32,6 +40,14 @@
             <option value="博多">博多</option>
             <option value="東京">東京</option>
         </select>
+        
+          <div class="error"
+
+                 th:if="${#fields.hasErrors('city')}"
+
+                 th:errors="*{city}">
+
+            </div>
 
         <input type="number"
                th:field="*{maxPrice}"
