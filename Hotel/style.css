@@ -2,191 +2,199 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
+    font-family:"Yu Gothic","Meiryo",sans-serif;
 }
 
 body{
-    font-family:"Yu Gothic","Meiryo",sans-serif;
-    background:#eef3f7;
-    padding:30px;
+    min-height:100vh;
+    padding:40px;
+    background:url("bg.jpg") center center / cover no-repeat;
 }
 
 .container{
-    max-width:1000px;
+    width:900px;
     margin:0 auto;
 }
 
 .title{
-    margin-bottom:20px;
     font-size:32px;
+    font-weight:bold;
+    margin-bottom:20px;
+    color:#333;
 }
 
-/* 検索エリア */
+/* ======================
+   検索エリア
+====================== */
 
 .search-box{
-    background:#f4c842;
+    background:#f1c84c;
     padding:15px;
-    border-radius:12px;
+    border-radius:15px;
     display:flex;
-    gap:10px;
+    gap:12px;
     align-items:center;
-    margin-bottom:20px;
+    margin-bottom:25px;
 }
 
 .search-box input,
 .search-box select{
-    height:45px;
-    padding:0 10px;
-    border:none;
-    border-radius:6px;
     flex:1;
+    height:50px;
+    padding:0 15px;
+    border:none;
+    border-radius:8px;
+    background:#fff;
+    font-size:16px;
 }
 
 .search-box button{
-    width:120px;
-    height:45px;
+    width:140px;
+    height:50px;
     border:none;
     border-radius:25px;
     background:#2454d8;
-    color:white;
+    color:#fff;
+    font-size:16px;
     font-weight:bold;
     cursor:pointer;
+    transition:.2s;
 }
 
 .search-box button:hover{
-    opacity:0.8;
+    background:#183fb3;
 }
 
-/* 一覧 */
+/* ======================
+   ホテル一覧
+====================== */
 
 .hotel-list{
-    background:white;
+    background:#fff;
     border-radius:8px;
     overflow:hidden;
-    box-shadow:0 2px 8px rgba(0,0,0,.15);
+    box-shadow:0 3px 10px rgba(0,0,0,.15);
 }
 
 .header{
     background:#1d4d86;
-    color:white;
-    display:flex;
-    justify-content:space-between;
+    color:#fff;
     padding:15px 20px;
-    font-size:20px;
+    display:flex;
+    align-items:center;
+    gap:50px;
+    font-size:24px;
     font-weight:bold;
 }
 
 .hotel-item{
     display:flex;
-    justify-content:space-between;
     align-items:center;
     padding:20px;
-    border-bottom:1px solid #ddd;
+    border-bottom:1px solid #e5e5e5;
+    min-height:110px;
     position:relative;
+    background:#fff;
+}
+
+.hotel-item:last-child{
+    border-bottom:none;
+}
+
+.hotel-icon{
+    width:90px;
+    text-align:center;
+    font-size:42px;
+    color:#333;
+}
+
+.hotel-icon small{
+    display:block;
+    margin-top:5px;
+    font-size:12px;
 }
 
 .hotel-info{
     flex:1;
 }
 
-.city{
+.area{
     color:#777;
+    font-size:14px;
     margin-bottom:5px;
 }
 
 .hotel-name{
-    font-size:24px;
+    font-size:26px;
     font-weight:bold;
-}
-
-.hotel-name a{
-    text-decoration:none;
     color:#222;
 }
 
-.hotel-name a:hover{
-    color:#2454d8;
-}
-
-.hotel-id{
-    color:#888;
-    margin-top:5px;
-    font-size:12px;
+.hotel-date{
+    width:140px;
+    color:#666;
+    font-size:14px;
 }
 
 .price{
-    font-size:32px;
-    font-weight:bold;
     width:180px;
     text-align:right;
+    font-size:40px;
+    font-weight:bold;
+    color:#222;
 }
 
-/* Sold Out */
+/* ======================
+   Sold Out
+====================== */
 
 .soldout{
     background:#f3f3f3;
 }
 
+.soldout .hotel-icon,
 .soldout .hotel-name,
-.soldout .city,
-.soldout .hotel-id,
-.soldout .price{
-    color:#999;
+.soldout .hotel-date,
+.soldout .price,
+.soldout .area{
+    color:#9a9a9a;
 }
 
-.disabled-name{
-    color:#999;
-}
-
-.sold-overlay{
+.soldout::after{
+    content:"Sold Out";
     position:absolute;
-    top:50%;
     left:50%;
+    top:50%;
     transform:translate(-50%,-50%);
     color:#d9534f;
-    font-size:30px;
+    font-size:34px;
     font-weight:bold;
+    z-index:10;
 }
 
-/* 0件 */
-
-.no-data{
-    background:white;
-    padding:30px;
-    text-align:center;
-    border-radius:8px;
-    font-size:18px;
-}
-
-/* ページング */
+/* ======================
+   ページング
+====================== */
 
 .pager{
     margin-top:20px;
     display:flex;
     justify-content:center;
-    align-items:center;
-    gap:5px;
-}
-
-.pager form{
-    display:inline;
+    gap:10px;
 }
 
 .pager button{
-    min-width:40px;
+    width:60px;
     height:40px;
     border:none;
-    border-radius:4px;
+    border-radius:6px;
     background:#1d4d86;
-    color:white;
+    color:#fff;
+    font-size:20px;
     cursor:pointer;
+    transition:.2s;
 }
 
 .pager button:hover{
-    opacity:0.8;
-}
-
-.pager button.active{
-    background:#f4c842;
-    color:black;
-    font-weight:bold;
+    background:#14375f;
 }
