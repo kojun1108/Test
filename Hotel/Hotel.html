@@ -3,17 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <title>ホテル検索</title>
-
 <link rel="stylesheet" th:href="@{/css/hotel.css}">
-
 </head>
+
 <body>
 
 <div class="container">
 
     <h1 class="title">ホテル検索</h1>
 
-    <!-- 検索条件 -->
+    <!-- 検索フォーム -->
     <form th:action="@{/hotel}"
           method="get"
           th:object="${searchForm}"
@@ -23,23 +22,10 @@
                th:field="*{stayDate}">
 
         <select th:field="*{city}">
-
-            <option value="">
-                都市を選択
-            </option>
-
-            <option value="福岡">
-                福岡
-            </option>
-
-            <option value="博多">
-                博多
-            </option>
-
-            <option value="東京">
-                東京
-            </option>
-
+            <option value="">都市を選択</option>
+            <option value="福岡">福岡</option>
+            <option value="博多">博多</option>
+            <option value="東京">東京</option>
         </select>
 
         <input type="number"
@@ -52,8 +38,7 @@
 
     </form>
 
-    <!-- 検索結果0件 -->
-
+    <!-- 0件 -->
     <div class="no-data"
          th:if="${#lists.isEmpty(hotelList)}">
 
@@ -62,15 +47,18 @@
     </div>
 
     <!-- ホテル一覧 -->
-
     <div class="hotel-list"
          th:if="${!#lists.isEmpty(hotelList)}">
 
         <div class="header">
 
-            <span>ホテル名</span>
+            <div class="header-name">
+                ホテル名
+            </div>
 
-            <span>料金</span>
+            <div class="header-price">
+                料金
+            </div>
 
         </div>
 
@@ -112,8 +100,8 @@
                  th:text="${#numbers.formatInteger(hotel.price,3,'COMMA')} + '円'">
             </div>
 
-            <span class="sold-overlay"
-                  th:if="${hotel.stock == 0}">
+            <span th:if="${hotel.stock == 0}"
+                  class="sold-overlay">
                 Sold Out
             </span>
 
@@ -128,40 +116,91 @@
 
         <!-- 前へ -->
 
-        <a th:if="${currentPage > 0}"
-           th:href="@{/hotel(
-                page=${currentPage-1},
-                stayDate=${searchForm.stayDate},
-                city=${searchForm.city},
-                maxPrice=${searchForm.maxPrice})}">
-            ＜
-        </a>
+        <form th:if="${currentPage > 0}"
+              th:action="@{/hotel}"
+              method="get">
+
+            <input type="hidden"
+                   name="stayDate"
+                   th:value="${searchForm.stayDate}">
+
+            <input type="hidden"
+                   name="city"
+                   th:value="${searchForm.city}">
+
+            <input type="hidden"
+                   name="maxPrice"
+                   th:value="${searchForm.maxPrice}">
+
+            <input type="hidden"
+                   name="page"
+                   th:value="${currentPage - 1}">
+
+            <button type="submit">
+                ＜
+            </button>
+
+        </form>
 
         <!-- ページ番号 -->
 
         <span th:each="i : ${#numbers.sequence(0,totalPages-1)}">
 
-            <a th:text="${i + 1}"
-               th:href="@{/hotel(
-                    page=${i},
-                    stayDate=${searchForm.stayDate},
-                    city=${searchForm.city},
-                    maxPrice=${searchForm.maxPrice})}"
-               th:classappend="${i == currentPage} ? ' active'">
-            </a>
+            <form th:action="@{/hotel}"
+                  method="get">
+
+                <input type="hidden"
+                       name="stayDate"
+                       th:value="${searchForm.stayDate}">
+
+                <input type="hidden"
+                       name="city"
+                       th:value="${searchForm.city}">
+
+                <input type="hidden"
+                       name="maxPrice"
+                       th:value="${searchForm.maxPrice}">
+
+                <input type="hidden"
+                       name="page"
+                       th:value="${i}">
+
+                <button type="submit"
+                        th:text="${i + 1}"
+                        th:classappend="${i == currentPage} ? ' active'">
+                </button>
+
+            </form>
 
         </span>
 
         <!-- 次へ -->
 
-        <a th:if="${currentPage < totalPages - 1}"
-           th:href="@{/hotel(
-                page=${currentPage+1},
-                stayDate=${searchForm.stayDate},
-                city=${searchForm.city},
-                maxPrice=${searchForm.maxPrice})}">
-            ＞
-        </a>
+        <form th:if="${currentPage < totalPages - 1}"
+              th:action="@{/hotel}"
+              method="get">
+
+            <input type="hidden"
+                   name="stayDate"
+                   th:value="${searchForm.stayDate}">
+
+            <input type="hidden"
+                   name="city"
+                   th:value="${searchForm.city}">
+
+            <input type="hidden"
+                   name="maxPrice"
+                   th:value="${searchForm.maxPrice}">
+
+            <input type="hidden"
+                   name="page"
+                   th:value="${currentPage + 1}">
+
+            <button type="submit">
+                ＞
+            </button>
+
+        </form>
 
     </div>
 
