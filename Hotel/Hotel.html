@@ -129,13 +129,19 @@
 
             </div>
 
+             <div class="soldout-mask"
+
+                 th:if="${hotel.stock == 0}">
+
+            </div>
+
             <div class="soldout"
+
                  th:if="${hotel.stock == 0}">
 
                 Sold Out
 
             </div>
-
         </div>
 
     </div>
