@@ -84,25 +84,27 @@ public class HotelController {
         return "hotel";
     }
 
-    @GetMapping("/detail/{id}")
-    public String detail(
-            @PathVariable String id,
-            HotelSearchForm searchForm,
-            Model model) {
+ @GetMapping("/detail/{id}")
+public String detail(
+        @PathVariable String id,
+        HotelSearchForm searchForm,
+        Model model) {
 
-        HotelEntity hotel =
-                hotelService.findById(id);
+    HotelEntity hotel =
+            hotelService.findById(id);
 
-        model.addAttribute(
-                "hotel",
-                hotel);
+    CartForm cartForm =
+            new CartForm();
 
-        model.addAttribute(
-                "searchForm",
-                searchForm);
+    cartForm.setHotelId(id);
+    cartForm.setQuantity(1);
 
-        return "hotel-detail";
-    }
+    model.addAttribute("hotel", hotel);
+    model.addAttribute("searchForm", searchForm);
+    model.addAttribute("cartForm", cartForm);
+
+    return "hotel-detail";
+}
 
     private void createPage(
             List<HotelEntity> result,
