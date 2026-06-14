@@ -29,7 +29,7 @@ public class CartController {
 
     @PostMapping("/add")
     public String addCart(
-            @Valid CartForm form,
+            @Valid @ModelAttribute CartForm form,
             BindingResult bindingResult,
             Model model) {
 
