@@ -89,6 +89,8 @@ public String init(
         model.addAttribute("order", order);
 
         session.setAttribute("cart", new CartItemDto());
+
+cart.clear();
         
         return "complete";
 
