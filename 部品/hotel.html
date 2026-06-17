@@ -1,0 +1,71 @@
+<div th:each="hotel : ${hotelList}"
+     class="hotel-row"
+     th:classappend="${hotel.stock == 0} ? 'soldout-row'">
+
+    <!-- ホテルアイコン -->
+
+    <div class="hotel-icon">
+
+        <img src="/images/hotel.png"
+             alt="hotel">
+
+        <div class="hotel-id"
+             th:text="${hotel.hotelId}">
+        </div>
+
+    </div>
+
+    <!-- ホテル情報 -->
+
+    <div class="hotel-info">
+
+        <div class="city"
+             th:text="${hotel.city}">
+        </div>
+
+        <div class="hotel-name">
+
+            <a th:if="${hotel.stock > 0}"
+               th:href="@{/hotel/detail/{id}(id=${hotel.hotelId})}"
+               th:text="${hotel.hotelName}">
+            </a>
+
+            <span th:if="${hotel.stock == 0}"
+                  th:text="${hotel.hotelName}">
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- 日付 -->
+
+    <div class="stay-date">
+
+        <div>宿泊日</div>
+
+        <div th:text="${#temporals.format(hotel.stayDate,'yyyy/MM/dd')}">
+        </div>
+
+    </div>
+
+    <!-- 金額 -->
+
+    <div class="price"
+         th:text="${#numbers.formatInteger(hotel.price,3,'COMMA')} + '円'">
+    </div>
+
+    <!-- sold out -->
+
+    <div class="soldout-mask"
+         th:if="${hotel.stock == 0}">
+    </div>
+
+    <div class="soldout"
+         th:if="${hotel.stock == 0}">
+
+        Sold Out
+
+    </div>
+
+</div>
