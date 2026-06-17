@@ -1,0 +1,152 @@
+.hotel-row{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    background:white;
+
+    min-height:140px;
+
+    padding:20px 30px;
+
+    border-bottom:1px solid #e5e5e5;
+}
+
+/* アイコン */
+
+.hotel-icon{
+
+    width:120px;
+
+    text-align:center;
+}
+
+.hotel-icon img{
+
+    width:50px;
+}
+
+.hotel-id{
+
+    margin-top:10px;
+
+    color:#777;
+
+    font-size:20px;
+}
+
+/* ホテル情報 */
+
+.hotel-info{
+
+    flex:1;
+}
+
+.city{
+
+    color:#888;
+
+    font-size:20px;
+
+    margin-bottom:8px;
+}
+
+.hotel-name{
+
+    font-size:28px;
+
+    font-weight:bold;
+}
+
+.hotel-name a{
+
+    color:black;
+
+    text-decoration:none;
+}
+
+.hotel-name a:hover{
+
+    color:#0c4aa3;
+}
+
+/* 日付 */
+
+.stay-date{
+
+    width:180px;
+
+    text-align:center;
+
+    color:#666;
+}
+
+.stay-date div:first-child{
+
+    font-size:14px;
+
+    margin-bottom:5px;
+}
+
+/* 金額 */
+
+.price{
+
+    width:220px;
+
+    text-align:right;
+
+    font-size:42px;
+
+    font-weight:bold;
+}
+
+/* sold out */
+
+.soldout-row{
+
+    background:#f3f3f3;
+}
+
+.soldout-mask{
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(240,240,240,0.6);
+
+    z-index:1;
+}
+
+.soldout{
+
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    color:#c60000;
+
+    font-size:32px;
+
+    font-weight:bold;
+
+    z-index:2;
+}
+
+.soldout-row .hotel-name,
+.soldout-row .price,
+.soldout-row .city{
+
+    color:#b0b0b0;
+}
