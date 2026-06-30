@@ -2,39 +2,112 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>アンケートアプリ</title>
+    <title>Questionnaire</title>
 
     <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
 
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- アイコン -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
 <body>
 
-<div class="container">
+<div class="background"></div>
 
-    <h1>📋 アンケートアプリ</h1>
+<div class="wrapper">
 
-    <p class="sub-title">
-        メニューを選択してください
-    </p>
+    <div class="title">
 
-    <div class="menu">
+        <i class="fa-regular fa-clipboard"></i>
+
+        <h1>QUESTIONNAIRE</h1>
+
+        <h2>アンケートアプリ</h2>
+
+        <div class="line"></div>
+
+        <p>メニューを選択してください</p>
+
+    </div>
+
+    <div class="cards">
 
         <a th:href="@{/create}" class="card">
-            <span class="icon">📝</span>
-            <h2>アンケート作成</h2>
-            <p>新しいアンケートを作成します。</p>
+
+            <div class="icon purple">
+                <i class="fa-solid fa-pen"></i>
+            </div>
+
+            <h3>アンケート作成</h3>
+
+            <span>CREATE</span>
+
+            <div class="separator"></div>
+
+            <p>
+                新しいアンケートを作成し、
+                <br>
+                質問を登録します。
+            </p>
+
+            <div class="arrow">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
         </a>
 
         <a th:href="@{/answer}" class="card">
-            <span class="icon">✍️</span>
-            <h2>アンケート回答</h2>
-            <p>アンケートに回答します。</p>
+
+            <div class="icon green">
+                <i class="fa-solid fa-pencil"></i>
+            </div>
+
+            <h3>アンケート回答</h3>
+
+            <span>ANSWER</span>
+
+            <div class="separator"></div>
+
+            <p>
+                公開中のアンケートへ
+                <br>
+                回答します。
+            </p>
+
+            <div class="arrow">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
         </a>
 
         <a th:href="@{/result}" class="card">
-            <span class="icon">📊</span>
-            <h2>結果確認</h2>
-            <p>回答結果を確認します。</p>
+
+            <div class="icon blue">
+                <i class="fa-solid fa-chart-column"></i>
+            </div>
+
+            <h3>結果画面</h3>
+
+            <span>RESULT</span>
+
+            <div class="separator"></div>
+
+            <p>
+                回答結果を集計し
+                <br>
+                グラフ表示します。
+            </p>
+
+            <div class="arrow">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
         </a>
 
     </div>
