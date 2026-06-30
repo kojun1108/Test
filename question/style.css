@@ -1,0 +1,108 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Yu Gothic","Meiryo",sans-serif;
+}
+
+body{
+
+    background:linear-gradient(135deg,#74ebd5,#ACB6E5);
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+
+    width:900px;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:50px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+
+    text-align:center;
+}
+
+h1{
+
+    font-size:42px;
+
+    color:#444;
+}
+
+.sub-title{
+
+    margin-top:10px;
+
+    color:#777;
+
+    margin-bottom:40px;
+}
+
+.menu{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:25px;
+}
+
+.card{
+
+    flex:1;
+
+    background:#f8f9ff;
+
+    border-radius:18px;
+
+    padding:35px;
+
+    text-decoration:none;
+
+    color:#333;
+
+    transition:0.3s;
+
+    box-shadow:0 8px 18px rgba(0,0,0,0.08);
+}
+
+.card:hover{
+
+    transform:translateY(-10px);
+
+    background:#4F8EF7;
+
+    color:white;
+
+    box-shadow:0 20px 35px rgba(79,142,247,0.4);
+}
+
+.icon{
+
+    font-size:50px;
+
+    display:block;
+
+    margin-bottom:20px;
+}
+
+.card h2{
+
+    margin-bottom:15px;
+}
+
+.card p{
+
+    font-size:15px;
+
+    line-height:1.6;
+}
